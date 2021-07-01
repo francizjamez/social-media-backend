@@ -1,18 +1,19 @@
 //imports
 const express = require("express");
 const mongoose = require("mongoose");
-const morgan = require("morgan");
+const middleware = require("./middlewares");
 require("dotenv").config();
 //routers
 const authRouter = require("./routes/auth.route");
+const userRouter = require("./routes/user.route");
 //constants
 const app = express();
 const PORT = 3333;
 //middlewares
-app.use(morgan(`tiny`));
-app.use(express.json());
+app.use([...middleware.defaults]);
 //routes
 app.use("/auth", authRouter);
+app.use("/user", userRouter);
 
 //connections
 app.listen(PORT, () => {
